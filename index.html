@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pinkly Token</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&family=Comic+Neue:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #ff69b4;
+        color: white;
+        font-family: 'Comic Neue', cursive;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Dot pattern for sections */
+      section {
+        position: relative;
+        overflow: hidden;
+      }
+
+      section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        /* Customize dot pattern here */
+        background-image: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.5) 5px,
+          /* Dot color and size */ transparent 5px
+        );
+        background-size: 150px 150px; /* Space between dots */
+        background-position: 0 0, 75px 75px; /* Dot position offset */
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      img {
+        border-radius: 1rem;
+      }
+
+      /* Navigation */
+      nav {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px 0;
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+      }
+
+      .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: 'Righteous', cursive;
+        font-size: 2rem;
+        color: #ffd700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        animation: bounce 2s infinite;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin-left: 30px;
+        font-size: 1.2rem;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #ffd700;
+      }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem;
+      }
+
+      .hero-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-text {
+        flex: 1;
+        width: 100%;
+      }
+
+      .hero-text h1 {
+        font-family: 'Righteous', cursive;
+        font-size: 4rem;
+        margin-bottom: 20px;
+        animation: slideIn 1s ease-out;
+      }
+
+      .hero-text p {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        animation: fadeIn 1s ease-out 0.5s forwards;
+        opacity: 0;
+        font-weight: bold;
+      }
+      .mascots {
+        flex: 1;
+      }
+      .mascots img {
+        width: 80%;
+        height: 80%;
+      }
+
+      .hero a {
+        /* color: white; */
+        border: 2px solid white;
+      }
+      .mascot {
+        width: 300px;
+        animation: float 3s ease-in-out infinite;
+        margin: 0 10px;
+      }
+
+      /* .hero-image-1 {
+        position: absolute;
+        top: 10%;
+        left: 6%;
+        border: 5px solid white;
+        border-radius: 100%;
+      }
+
+      .hero-image-2 {
+        position: absolute;
+        right: 10%;
+        bottom: 5%;
+        border: 5px solid white;
+        border-radius: 100%;
+      } */
+
+      /* About Section */
+      .about {
+        padding: 100px 0;
+        background: rgba(255, 255, 255, 0.1);
+        position: relative;
+      }
+
+      .about-content {
+        text-align: center;
+      }
+
+      .about h2 {
+        font-family: 'Righteous', cursive;
+        font-size: 3rem;
+        margin-bottom: 30px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .about p {
+        font-size: 1.8rem;
+        width: 90%;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+        font-weight: bold;
+      }
+
+      .about-images {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* Economics Section */
+      .economics h2 {
+        font-family: 'Righteous', cursive;
+        font-size: 3rem;
+        margin-bottom: 30px;
+        text-align: center;
+        width: 100%;
+      }
+      .economics {
+        padding: 100px 0;
+      }
+      .economics p {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      .buy-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: bounce infinite 2s;
+      }
+
+      .economics-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s;
+        position: relative;
+        border: 2px solid white;
+        display: flex;
+        flex-direction: column;
+        /* gap: 1rem; */
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+      }
+
+      .card h3 {
+        font-family: 'Righteous', cursive;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #ffd700;
+      }
+      .card img {
+        /* position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0; */
+        width: 100%;
+        margin-top: 2rem;
+      }
+      /* Community Section */
+      .community {
+        padding: 100px 0;
+        background: rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .community h2 {
+        font-family: 'Righteous', cursive;
+        font-size: 3rem;
+        margin-bottom: 30px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .community p {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 50px;
+      }
+      .social-links a {
+        flex: 1;
+        height: 4rem;
+      }
+
+      .social-button {
+        background: #ffd700;
+        color: #ff69b4;
+        padding: 15px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.3s;
+      }
+
+      .social-button:hover {
+        transform: scale(1.1);
+      }
+      .social-button svg,
+      .social-button .eagle {
+        animation: bounce 2s infinite;
+      }
+
+      /* Ticker */
+      .ticker-wrap {
+        width: 100%;
+        overflow: hidden;
+        background: white;
+        padding: 10px 0;
+        margin-top: 20px;
+      }
+
+      .ticker {
+        display: inline-block;
+        white-space: nowrap;
+        padding-right: 100%;
+        animation: ticker 30s linear infinite;
+      }
+
+      .ticker-item {
+        display: inline-block;
+        padding: 0 2rem;
+        font-size: 1.2rem;
+        color: #ff69b4; /* Primary color */
+        font-weight: bold;
+      }
+
+      /* Buy Button */
+      .buy-button {
+        display: inline-block;
+        background: #ffd700;
+        color: #ff69b4;
+        padding: 15px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-top: 30px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .buy-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Animations */
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes ticker {
+        0% {
+          transform: translate3d(100%, 0, 0);
+        }
+        100% {
+          transform: translate3d(-100%, 0, 0);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero-content {
+          flex-direction: column-reverse;
+          text-align: center;
+        }
+
+        .hero-text h1 {
+          font-size: 3rem;
+        }
+
+        .mascot {
+          width: 200px;
+          margin: 10px 0;
+        }
+
+        .hero {
+          padding: 1rem;
+        }
+        .nav-links {
+          display: none;
+        }
+
+        .economics-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .social-links {
+          align-items: center;
+        }
+      }
+      .trusted-brands {
+        text-align: center;
+        color: white;
+        font-family: 'Comic Neue', cursive;
+        padding: 2rem 0;
+      }
+
+      .trusted-heading {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+      }
+
+      .scrolling-container {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        margin: 0 auto;
+        background-color: white;
+      }
+
+      .scrolling-wrapper {
+        display: flex;
+        animation: scroll 20s linear infinite;
+      }
+
+      .brand-set {
+        display: flex;
+        justify-content: space-around;
+        flex-shrink: 0;
+        width: 100vw; /* Make each set take the full viewport width */
+      }
+
+      .brand {
+        margin: 0 50px;
+        color: #ff69b4;
+        font-weight: bold;
+        font-size: 2rem;
+        padding: 1rem 0;
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-200%); /* Match the number of brand sets */
+        }
+      }
+
+      .see-works-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: #ff69b4;
+        background-color: white;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .see-works-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .community .eagle {
+        width: 2rem;
+        height: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="container nav-content">
+        <div class="logo">Pinkly</div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#economics">Economics</a>
+          <a href="#community">Community</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Welcome to Pinkly</h1>
+          <p>
+            Join the cutest revolution in cryptocurrency! Our adorable mascots
+            are here to guide you through the future of digital assets.
+          </p>
+          <a href="#" class="buy-button">Explore Pinkly</a>
+          <a href="#" class="buy-button">Join Community</a>
+        </div>
+        <div class="mascots">
+          <img src="1.jpeg" alt="Pinkly Mascot 1" class="mascot hero-image-1" />
+        </div>
+        <!-- <img src="1.jpeg" alt="Pinkly Mascot 2" class="mascot hero-image-2" /> -->
+      </div>
+    </section>
+
+    <section class="trusted-brands">
+      <div class="scrolling-container">
+        <div class="scrolling-wrapper">
+          <!-- First set of brands -->
+          <div class="brand-set">
+            <div class="brand">Total supply 1 billion PNKLY</div>
+            <div class="brand">Enjoy no taxes</div>
+            <div class="brand">Contract Renounced</div>
+            <div class="brand">Ticker $PNKLY</div>
+          </div>
+          <!-- Second set of brands -->
+          <div class="brand-set">
+            <div class="brand">Total supply 1 billion PNKLY</div>
+            <div class="brand">Enjoy no taxes</div>
+            <div class="brand">Contract Renounced</div>
+            <div class="brand">Ticker $PNKLY</div>
+          </div>
+          <!-- Repeat sets for seamless looping -->
+          <div class="brand-set">
+            <div class="brand">Total supply 1 billion PNKLY</div>
+            <div class="brand">Enjoy no taxes</div>
+            <div class="brand">Contract Renounced</div>
+            <div class="brand">Ticker $PNKLY</div>
+          </div>
+          <div class="brand-set">
+            <div class="brand">Total supply 1 billion PNKLY</div>
+            <div class="brand">Enjoy no taxes</div>
+            <div class="brand">Contract Renounced</div>
+            <div class="brand">Ticker $PNKLY</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-content">
+        <h2>About Pinkly</h2>
+        <p>
+          Pinkly isn't just another token - it's a community-driven movement
+          that brings fun and accessibility to the world of cryptocurrency. Our
+          adorable mascots represent our commitment to making crypto friendly
+          and approachable for everyone!
+        </p>
+      </div>
+      <div class="about-images">
+        <img src="1.jpeg" alt="Pinkly Mascot 1" class="mascot" />
+        <img src="2.jpeg" alt="Pinkly Mascot 2" class="mascot" />
+        <img src="3.jpeg" alt="Pinkly Mascot 2" class="mascot" />
+      </div>
+      <div class="buy-container">
+        <a href="#" class="see-works-button">Buy Pinkly</a>
+      </div>
+    </section>
+
+    <section class="economics" id="economics">
+      <div class="container">
+        <h2>Tokenomics</h2>
+        <div class="economics-cards">
+          <div class="card">
+            <h3>Total Supply</h3>
+            <p>1,000,000,000 PINKLY</p>
+            <img src="2.jpeg" alt="Total Supply" />
+          </div>
+          <div class="card">
+            <h3>Contract</h3>
+            <p>Renounced</p>
+            <img src="4.jpeg" alt="Community Rewards" />
+          </div>
+          <div class="card">
+            <h3>Ticker</h3>
+            <p>$PKLY</p>
+            <img src="5.jpeg" alt="Liquidity Pool" />
+          </div>
+          <div class="card">
+            <h3>Taxes</h3>
+            <p>0/0 Taxes</p>
+            <img src="1.jpeg" alt="Liquidity Pool" />
+          </div>
+          <div class="card">
+            <h3>Liquidity</h3>
+            <p>Burnt</p>
+            <img src="3.jpeg" alt="Liquidity Pool" />
+          </div>
+          <div class="card">
+            <h3>Total Supply</h3>
+            <p>1 Billion PNKPTR</p>
+            <img src="1.jpeg" alt="Liquidity Pool" />
+          </div>
+        </div>
+
+        <div class="buy-container">
+          <a href="#" class="see-works-button">Buy Pinkly</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="community" id="community">
+      <div class="container">
+        <h2>Join Our Community</h2>
+        <p>
+          Be part of the most vibrant crypto community! Connect with fellow
+          Pinkly lovers and stay updated on the latest developments.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2s-.21-.05-.3-.03c-.14.03-2.29 1.45-6.46 4.26-.61.42-1.16.63-1.65.61-.54-.01-1.58-.31-2.35-.57-.95-.32-1.7-.49-1.63-.98.04-.26.32-.53.86-.82 3.37-1.47 5.61-2.45 6.74-2.94 3.21-1.41 3.87-1.65 4.31-1.66.09 0 .31.02.45.12.13.09.17.22.18.34 0 .1.01.22 0 .35z"
+              />
+            </svg>
+          </a>
+          <a href="#" class="social-button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
+            </svg>
+          </a>
+          <a href="#" class="social-button">
+            <img src="./logo.png" alt="Discord" class="eagle" />
+          </a>
+        </div>
+        <img
+          src="1.jpeg"
+          alt="Pinkly Community"
+          style="width: 200px; margin-top: 30px; border-radius: 50%"
+        />
+      </div>
+    </section>
+  </body>
+</html>
